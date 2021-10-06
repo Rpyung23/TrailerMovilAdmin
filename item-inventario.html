@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FoodTruck</title>
+    <title>Trailer Movil Events</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -173,7 +173,7 @@
                             <i class="fa fa-money" aria-hidden="true"></i><span class="nav-text">Facturación</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Nueva Factura</a></li>
+                            <li><a href="item-new-factura.html">Nueva Factura</a></li>
                             <li><a href="item-detalle-facturacion.html">Detalles Facturas</a></li>
                             <!--<li><a href="./layout-two-column.html">Two column</a></li>
                             <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
@@ -350,7 +350,7 @@
 
                     <div class="col-12">
 
-                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Producto</button>
+                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus m-r-5"></i> Agregar Producto</button>
 
                         <br><br><br>
                         <div class="card">
@@ -489,6 +489,70 @@
     <!--**********************************
         Main wrapper end
     ***********************************-->
+
+
+
+    <!-- Large modal -->
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registro de Producto</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="col-lg-12">
+                        <div class="basic-form">
+                            <div class="container-foto-add-menu">
+                                <img src="/images/profile/profile.png" class="img-add-menu mr-3">
+                                <form>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control-file">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <br>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Descripción</label>
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Precio Compra</label>
+                                    <input type="password" class="form-control" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Stock</label>
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Referencia Proveedor</label>
+                                    <input type="password" class="form-control" placeholder="Password">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="basic-form">
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!--**********************************

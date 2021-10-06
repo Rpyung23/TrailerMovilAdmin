@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FoodTruck</title>
+    <title>Trailer Movil Events</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Pignose Calender -->
@@ -38,7 +38,7 @@
     <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper">
+    <div id="main-wrapper" class="show menu-toggle">
 
         <!--**********************************
             Nav header start
@@ -175,7 +175,7 @@
                             <i class="fa fa-money" aria-hidden="true"></i><span class="nav-text">Facturación</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Nueva Factura</a></li>
+                            <li><a href="item-new-factura.html">Nueva Factura</a></li>
                             <li><a href="item-detalle-facturacion.html">Detalles Facturas</a></li>
                             <!--<li><a href="./layout-two-column.html">Two column</a></li>
                             <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
@@ -350,10 +350,10 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">
                             <div class="card-body">
-                                <h3 class="card-title text-white">Products Sold</h3>
+                                <h3 class="card-title text-white">Inverciones</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">4565</h2>
-                                    <p class="text-white mb-0">Jan - March 2019</p>
+                                    <h2 class="text-white">$ 45.50</h2>
+                                    <p class="text-white mb-0">Octubre 2021</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
                             </div>
@@ -364,7 +364,7 @@
                             <div class="card-body">
                                 <h3 class="card-title text-white">Ganancias</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">$ 8541</h2>
+                                    <h2 class="text-white">$ 85.41</h2>
                                     <p class="text-white mb-0">Octubre 2021</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
@@ -472,7 +472,7 @@
                             <div class="card-body">
                                 <div class="active-member">
                                     <div class="table-responsive">
-                                        <table class="table table-xs mb-0">
+                                        <table class="table table-xs mb-0 zero-configuration">
                                             <thead>
                                                 <tr>
                                                     <th>Cliente</th>
@@ -697,6 +697,11 @@
 
 
     <script src="./js/dashboard/dashboard-1.js"></script>
+
+    <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
 
 </body>
 

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>FoodTruck</title>
+    <title>Trailer Movil Events</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -173,7 +173,7 @@
                             <i class="fa fa-money" aria-hidden="true"></i><span class="nav-text">Facturación</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="#">Nueva Factura</a></li>
+                            <li><a href="item-new-factura.html">Nueva Factura</a></li>
                             <li><a href="item-detalle-facturacion.html">Detalles Facturas</a></li>
                             <!--<li><a href="./layout-two-column.html">Two column</a></li>
                             <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
@@ -341,6 +341,15 @@
         <!--**********************************
             Content body start
         ***********************************-->
+
+        <div class="input-group geocoder">
+            <input type="text" class="form-control" placeholder="Ingrese el nombre de las calles.">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </div>
+        </div>
+
+
         <div class="content-body" id="mapa">
 
         </div>
@@ -413,6 +422,20 @@
             });
         }
     </script>
+
+    <style>
+        .geocoder {
+            position: absolute !important;
+            z-index: 99999999999999999999999999999999;
+            margin-top: 10px;
+            margin-right: 10px;
+            right: 0;
+        }
+        
+        .input-group {
+            width: 50%;
+        }
+    </style>
 </body>
 
 </html>

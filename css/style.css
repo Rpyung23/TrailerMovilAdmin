@@ -20925,3 +20925,13 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 #DataTables_Table_0_filter label {
     display: flex !important;
 }
+
+.container-foto-add-menu {
+    display: flex;
+    align-items: center;
+}
+
+.img-add-menu {
+    height: 100px;
+    width: 100px;
+}
