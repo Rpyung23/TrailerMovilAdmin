@@ -355,22 +355,32 @@
                                 <div class="basic-form">
                                     <div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label>Dni/Ruc</label>
-                                                <input type="email" class="form-control" placeholder="Email">
+
+                                            <div class="form-group-sin-bottom col-md-2">
+                                                <label>Tipo Factura</label><br>
+                                                <label class="radio-inline mr-3">
+                                                    <input type="radio" name="optradio"> Con Datos(Personal)</label>
+                                                <label class="radio-inline mr-3">
+                                                        <input type="radio" name="optradio"> Consumidor Final</label>
+
                                             </div>
 
 
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group-sin-bottom col-md-4">
+                                                <label>Dni/Ruc</label>
+                                                <input type="text" class="form-control" placeholder="#### #### ### ###">
+                                            </div>
+
+                                            <div class="form-group-sin-bottom col-md-6">
                                                 <label>Nombres Completos</label>
-                                                <input type="password" class="form-control" placeholder="Password">
+                                                <input type="text" class="form-control" placeholder="">
                                             </div>
                                         </div>
 
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label>Dirección</label>
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="text" class="form-control" placeholder="Calle 13 y Diagonal">
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Acciones</label><br>
@@ -512,7 +522,7 @@
                                                             </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                        <div class="form-group-sin-bottom">
                             <select class="form-control">
                                 <option>Bebidas</option>
                                 <option>Picaditos</option>
@@ -697,6 +707,10 @@
         
         .modal-add-producto div {
             margin-top: 1rem;
+        }
+        
+        .form-group-sin-bottom {
+            margin-bottom: 0rem !important;
         }
     </style>
 </body>
