@@ -1,3 +1,14 @@
+<?php
+
+if(file_exists('session/session.php'))
+{
+    include 'session/session.php';
+}else{
+    include '../session/session.php';
+}
+
+?>
+
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
@@ -46,10 +57,10 @@
 
                                 <div class="mt-5 mb-5 login-input">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="text" id="user" class="form-control" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" id="pass" class="form-control" placeholder="Password">
                                     </div>
                                     <button id="btn_login" class="btn login-form__btn submit w-100">Ingresar</button>
                                 </div>
@@ -73,12 +84,68 @@
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="js/jquery.js"></script>
 
     <script>
         var btn_login = document.getElementById("btn_login")
-        btn_login.addEventListener("click", function(e) {
-            location.href = "./home.html"
+        var user  = document.getElementById("user");
+        var pass = document.getElementById("pass");
+        btn_login.addEventListener("click", function(e) 
+        {
+            var obj = {
+                codigo:"empleado",
+                user:user.value,
+                pass:pass.value
+            }
+            
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/login.php",
+                method :'POST',
+                data:JSON.stringify(obj) 
+  
+            })
+            .done(function(datos)
+            {
+                var datos = JSON.stringify(datos)
+                var json = JSON.parse(datos)
+                if(json.status == 200)
+                {
+                    _session(json.datos)
+                }else{
+                    alert("Usuario no encontrado.")
+                }
+            }).fail(function(error){
+                console.log(error)
+                alert("Error Api Rest")
+            })
+            
         })
+
+
+        function _session(obj)
+        {
+            $.ajax({
+                url:"./rest/session.php",
+                method :'POST',
+                data:JSON.stringify(obj)
+            }).done(function(datos)
+                {
+                    console.log(datos)
+                    var datos_ = JSON.stringify(datos)
+                    var json = JSON.parse(datos_)
+                    if(json.status == 200)
+                    {
+                        location.href = "./home.php"
+                    }else{
+                        alert("Error API Session")
+                    }
+                }).fail(function(error)
+            {
+                console.log(error)
+                alert("Error Api SESSION")
+            })
+        }
+
     </script>
 
 
