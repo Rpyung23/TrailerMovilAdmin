@@ -20932,6 +20932,6 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 }
 
 .img-add-menu {
-    height: 100px;
-    width: 100px;
+    height: 150px;
+    width: 180px;
 }

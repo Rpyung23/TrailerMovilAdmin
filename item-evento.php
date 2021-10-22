@@ -14,6 +14,14 @@ session_start();
     <!-- Custom Stylesheet -->
     <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+        <!-- Custom Stylesheet -->
+        <link href="./plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="./plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+
+    <!-- Date picker plugins css -->
+    <link href="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -58,7 +66,7 @@ session_start();
 
                     <div class="col-12">
 
-                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" data-toggle="modal" data-target=".bd-example-modal-lg" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Menú</button>
+                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" data-toggle="modal" data-target=".bd-example-modal-lg" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Evento</button>
 
                         <br><br><br>
                         <div class="card">
@@ -68,10 +76,10 @@ session_start();
                                         <thead>
                                             <tr>
                                                 <th>Codigo</th>
-                                                <th>Nombre Producto</th>
-                                                <th>Tipo</th>
+                                                <th>Nombre</th>
+                                                <th>Ubicación</th>
                                                 <th>Estado</th>
-                                                <th>Precio U.</th>
+                                                <th>Precio</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -187,7 +195,7 @@ session_start();
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Registro de Menú</h5>
+                        <h5 class="modal-title">Registro de Evento</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                             </button>
                     </div>
@@ -196,10 +204,10 @@ session_start();
                         <div class="col-lg-12">
                             <div class="basic-form">
                                 <div class="container-foto-add-menu">
-                                    <img src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
+                                    <img  id="imagenPrevisualizacion" src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
                                     <form>
                                         <div class="form-group">
-                                            <input type="file" class="form-control-file">
+                                            <input type="file" id="seleccionArchivos" class="form-control-file" accept="image/*">
                                         </div>
                                     </form>
                                 </div>
@@ -208,8 +216,18 @@ session_start();
                             <form>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label>Descripción</label>
-                                        <input type="text" id="description_insert" class="form-control" placeholder="Descripción">
+                                        <label>Nombre del Evento</label>
+                                        <input type="text" id="name_insert" class="form-control" placeholder="Nombre Evento">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Detalle</label>
+                                        <input type="text" id="detalle_insert" class="form-control" placeholder="Detalle del Evento">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Ubicación</label>
+                                        <input type="text" id="ubicacion_insert" class="form-control" placeholder="Ubicación del Evento">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Precio</label>
@@ -217,12 +235,16 @@ session_start();
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label>Tipo Menu</label>
-                                        <select id="inputState" class="form-control">
-                                        </select>
+                                    <div class="form-group col-md-6">
+                                        <label>Fecha Evento</label>
+                                        <input type="text" class="form-control" placeholder="Fecha del Evento" id="min-date" data-dtp="dtp_HWBym">
                                     </div>
+                                    <!--<div class="form-group col-md-6">
+                                        <label>Precio</label>
+                                        <input type="text" id="precio_insert" class="form-control" placeholder="Precio">
+                                    </div>-->
                                 </div>
+                           
                             </form>
                         </div>
 
@@ -233,7 +255,7 @@ session_start();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="insertMenu()">Guardar Cambios</button>
+                        <button type="button" class="btn btn-primary" onclick="insertEventoPhoto()">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
@@ -260,8 +282,9 @@ session_start();
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="js/selected_foto.js"></script>
 
-
+    <script src="./plugins/moment/moment.js"></script>
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
     <!--<script src="./plugins/sweetalert/js/sweetalert.init.js"></script>-->
 
@@ -270,8 +293,19 @@ session_start();
     <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
+    <script src="./plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="./plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="./plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
+
+
+
+
+
     <script>
-        $(document).on("click", ".delete-menu", function() 
+        $(document).on("click", ".delete_evento", function() 
         {
             var element = $(this)[0]
             var code = element.attributes[0].value
@@ -287,20 +321,20 @@ session_start();
                 closeOnConfirm: !1
             }, function() 
             {
-                deleteMenu(code);
+                deleteEvento(code);
             })
         })
 
 
         
-        function deleteMenu(id)
+        function deleteEvento(id)
         {
             var obj = {
-                id_menu:id
+                id_evento:id
             }
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php",
+                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php",
                 method:"DELETE",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -308,22 +342,21 @@ session_start();
                 console.log(datos)
                 var stringify = JSON.stringify(datos)
                 var json = JSON.parse(stringify)
-                var template = ""
                 if(json.status == 200)
                 {
+                    readEventosAll()
                     swal("Eliminado !!", "¡¡Oye, tu archivo imaginario ha sido eliminado !!", "success")
                 }
-                readMenusAll()
             }).fail(function(error){
                 console.log(error)
                 alert("ERROR API REST")
             })
         }
 
-        function readMenusAll()
+        function readEventosAll()
         {
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
+                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php?estado=all",
             }).done(function(datos)
             {
                 console.log(datos)
@@ -335,27 +368,23 @@ session_start();
                     for(var i=0;i<json.datos.length;i++)
                     {
                         var span = ""
-                        if(json.datos[i].estado == 0)
-                        {
-                            span = '<i class="fa fa-circle-o text-danger  mr-2"></i><span class="badge badge-danger badge-sm m-t-5">Inactivo</span>'
-                        }else{
-                            span = '<i class="fa fa-circle-o text-primary  mr-2"></i><span class="badge badge-primary badge-sm m-t-5">Activo</span>'
-                        }
+                    if(json.datos[i].estado == 1){
+                        span = '<i class="fa fa-circle-o text-primary  mr-2"></i> <span class="badge badge-primary badge-sm m-t-5">Activo</span>'
+                    }else{
+                        span = '<i class="fa fa-circle-o text-danger  mr-2"></i> <span class="badge badge-danger badge-sm m-t-5">Inactivo</span>'
+                    }
 
-                        template+= ` <tr>
-                                                <td class="td-codigo"><strong>${json.datos[i].id_menu}</strong></td>
-                                                <td><img src="${json.datos[i].foto_menu}"
-                                                        class="img-table rounded-circle mr-2" alt="">${json.datos[i].detalle}</td>
-                                                <td>
-                                                    ${json.datos[i].detalle_tipo}
-                                                </td>
+                        template += `<tr>
+                                                <td class="td-codigo"><strong>${json.datos[i].id_evento}</strong></td>
+                                                <td><img src="${json.datos[i].foto}" class="img-table rounded-circle mr-2" alt="">${json.datos[i].nombre}</td>
+                                                <td>${json.datos[i].ubicacion}</td>
                                                 <td>
                                                     ${span}
                                                 </td>
                                                 <td class="td-codigo"><strong>${json.datos[i].precio} $</strong> </td>
                                                 <td>
                                                     <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-edit m-r-5"></i></button>
-                                                    <button codigo="${json.datos[i].id_menu}" class="btn btn-danger delete-menu m-b-30 btn sweet-confirm" type="button"><i class="fa fa-trash m-r-5"></i></button>
+                                                    <button id_evento="${json.datos[i].id_evento}" class="delete_evento btn btn-danger m-b-30" type="button"><i class="fa fa-trash m-r-5"></i></button>
                                                 </td>
                                             </tr>`
                     }
@@ -368,22 +397,54 @@ session_start();
             })
         }
 
-        function insertMenu()
+        function insertEventoPhoto()
         {
-            var det = document.getElementById("description_insert").value
-            var pre = document.getElementById("precio_insert").value
-
-            var obj = {
-                detalle:det,
-                precio:pre,
-                foto:"https://lahora.com.ec/contenido/cache/2e/la_pilsener_sube_de_precio__20120113045222-2000x2000.jpg",
-                tipo:$("#inputState").val()
-            }
-
-            //console.log(obj)
+            var formData = new FormData();
+            var files = $('#seleccionArchivos')[0].files[0];    
+            
+            formData.append('file',files);
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
+                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                method:"POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+            }).done(function(datos)
+            {
+                console.log(datos)
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if(json.status == 200)
+                {
+                    
+                    //readEventosAll()
+                    insertEvento(json.url.replace("../",""))
+                }else{
+                    swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
+                }
+
+            }).fail(function(error){
+                console.log(error.responseText)
+                alert("ERROR API REST")
+            })
+
+        }
+
+
+        function insertEvento(url)
+        {
+            var obj = {
+                nombre:document.getElementById("name_insert").value,
+                detalle:document.getElementById("detalle_insert").value,
+                ubicacion:document.getElementById("ubicacion_insert").value,
+                foto:"https://roman-company.com/TrailerMovilApiRest/"+url,
+                fecha_evento:document.getElementById("min-date").value,
+                precio:document.getElementById("precio_insert").value
+            }
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php",
                 method:"POST",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -393,8 +454,8 @@ session_start();
                 var json = JSON.parse(stringify)
                 if(json.status == 200)
                 {
+                    readEventosAll()
                     swal("Menu Guardado !!", "¡¡Oye, tu archivo ha sido guardado con exito !!", "success")
-                    readMenusAll()
                 }else{
 
                 }
@@ -405,34 +466,14 @@ session_start();
             })
         }
 
-        function readTipoMenu()
-        {
-            $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/tipomenu.php",
-            }).done(function(datos)
-            {
-                console.log(datos)
-                var stringify = JSON.stringify(datos)
-                var json = JSON.parse(stringify)
-                var template = ""
-                if(json.status == 200)
-                {
-                    for(var i=0;i<json.datos.length;i++)
-                    {
-                        template+= `<option value="${json.datos[i].id_tipo_menu}">${json.datos[i].detalle}</option>`
-                    }
-                    document.getElementById("inputState").innerHTML = template
-                }
+        readEventosAll()
 
-            }).fail(function(error){
-                console.log(error)
-                alert("ERROR API REST")
-            })
-        }
 
-        
-        readTipoMenu()
-        readMenusAll()
+        $('#min-date').bootstrapMaterialDatePicker({
+        format: 'YYYY/MM/DD HH:mm',
+        minDate: new Date()
+    });
+
     </script>
 
 

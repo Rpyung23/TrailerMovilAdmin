@@ -1,11 +1,6 @@
 <?php
 
-if(file_exists('session/session.php'))
-{
-    include 'session/session.php';
-}else{
-    include '../session/session.php';
-}
+session_unset();
 
 ?>
 
@@ -97,6 +92,8 @@ if(file_exists('session/session.php'))
                 user:user.value,
                 pass:pass.value
             }
+
+            console.log(obj)
             
             $.ajax({
                 url:"https://roman-company.com/TrailerMovilApiRest/view/login.php",
@@ -110,7 +107,7 @@ if(file_exists('session/session.php'))
                 var json = JSON.parse(datos)
                 if(json.status == 200)
                 {
-                    _session(json.datos)
+                    location.href = "./home.php"
                 }else{
                     alert("Usuario no encontrado.")
                 }
@@ -120,32 +117,6 @@ if(file_exists('session/session.php'))
             })
             
         })
-
-
-        function _session(obj)
-        {
-            $.ajax({
-                url:"./rest/session.php",
-                method :'POST',
-                data:JSON.stringify(obj)
-            }).done(function(datos)
-                {
-                    console.log(datos)
-                    var datos_ = JSON.stringify(datos)
-                    var json = JSON.parse(datos_)
-                    if(json.status == 200)
-                    {
-                        location.href = "./home.php"
-                    }else{
-                        alert("Error API Session")
-                    }
-                }).fail(function(error)
-            {
-                console.log(error)
-                alert("Error Api SESSION")
-            })
-        }
-
     </script>
 
 

@@ -78,6 +78,15 @@
                 </ul>-->
             </li>
             <li>
+                <a class="has-arrow" href="item-evento.php" aria-expanded="false">
+                    <i class="fa fa-music" aria-hidden="true"></i> <span class="nav-text">Eventos</span>
+                </a>
+                <!--<ul aria-expanded="false">
+                    <li><a href="./email-inbox.html">Registro Menú</a></li>
+                    <li><a href="./email-read.html">Detalle Menú</a></li>
+                </ul>-->
+            </li>
+            <li>
                 <a class="has-arrow" href="./item-inventario.php" aria-expanded="false">
                     <i class="fa fa-dropbox" aria-hidden="true"></i><span class="nav-text">Inventario</span>
                 </a>

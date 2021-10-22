@@ -1,5 +1,6 @@
 <?php
 
+
 function createSeassion($user,$names,$id_rol,$rol)
 {
     session_start();

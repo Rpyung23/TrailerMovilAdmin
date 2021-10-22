@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,19 +21,9 @@
 
 <body>
 
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader" style="display: none;">
-        <div class="loader">
-            <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
-            </svg>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
+<?php
+     include 'templates/preloader.php'
+    ?>
 
 
     <!--**********************************
@@ -38,306 +31,20 @@
     ***********************************-->
     <div id="main-wrapper" class="show menu-toggle">
 
-        <!--**********************************
-            Nav header start
-        ***********************************-->
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
-                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
-                    <span class="brand-title">
-                        <img src="images/logo-text.png" alt="">
-                    </span>
-                </a>
-            </div>
-        </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
 
-        <!--**********************************
-            Header start
-        ***********************************-->
-        <div class="header">
-            <div class="header-content clearfix">
-
-                <div class="nav-control">
-                    <div class="hamburger">
-                        <span class="toggle-icon"><i class="icon-menu"></i></span>
-                    </div>
-                </div>
-
-                <div class="header-right">
-                    <ul class="clearfix">
-
-                        <!-- <li class="icons dropdown">
-                            <a href="javascript:void(0)" data-toggle="dropdown">
-                                <i class="mdi mdi-bell-outline"></i>
-                                <span class="badge badge-pill gradient-2">3</span>
-                            </a>
-                            <div class="drop-down animated fadeIn dropdown-menu dropdown-notfication">
-                                <div class="dropdown-content-heading d-flex justify-content-between">
-                                    <span class="">2 New Notifications</span>
-                                    <a href="javascript:void()" class="d-inline-block">
-                                        <span class="badge badge-pill gradient-2">5</span>
-                                    </a>
-                                </div>
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events near you</h6>
-                                                    <span class="notification-text">Within next 5 days</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Started</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Event Ended Successfully</h6>
-                                                    <span class="notification-text">One hour ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void()">
-                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-present"></i></span>
-                                                <div class="notification-content">
-                                                    <h6 class="notification-heading">Events to Join</h6>
-                                                    <span class="notification-text">After two days</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </li>
-                    -->
-                        <li class="icons dropdown">
-                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
-                                <span class="activity active"></span>
-                                <img src="images/user/1.png" height="40" width="40" alt="">
-                            </div>
-                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
-                                <div class="dropdown-content-body">
-                                    <ul>
-                                        <li>
-                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
-                                        </li>
-                                        <hr class="my-2">
-                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
+    <?php
+        include 'templates/nav-header.php'
+        ?>
 
 
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-        <div class="nk-sidebar">
-            <div class="nk-nav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label">Dashboard</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="home.html">Home</a></li>
-                            <!-- <li><a href="./index-2.html">Home 2</a></li> -->
-                        </ul>
-                    </li>
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-money" aria-hidden="true"></i><span class="nav-text">Facturación</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="item-new-factura.html">Nueva Factura</a></li>
-                            <li><a href="item-detalle-facturacion.html">Detalles Facturas</a></li>
-                            <!--<li><a href="./layout-two-column.html">Two column</a></li>
-                            <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="./layout-vertical.html">Vertical</a></li>
-                            <li><a href="./layout-horizontal.html">Horizontal</a></li>
-                            <li><a href="./layout-boxed.html">Boxed</a></li>
-                            <li><a href="./layout-wide.html">Wide</a></li>
+        <?php
+        include 'templates/header.php'
+        ?>
 
 
-                            <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
-                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>-->
-                        </ul>
-                    </li>
-                    <li class="mega-menu mega-menu-sm">
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-braille" aria-hidden="true"></i><span class="nav-text">Reservaciónes</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="#">Nueva Reservar</a></li>
-                            <li><a href="item-detalle-reserva.html">Detalles Reserva</a></li>
-                            <!--<li><a href="./layout-two-column.html">Two column</a></li>
-                            <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
-                            <li><a href="./layout-vertical.html">Vertical</a></li>
-                            <li><a href="./layout-horizontal.html">Horizontal</a></li>
-                            <li><a href="./layout-boxed.html">Boxed</a></li>
-                            <li><a href="./layout-wide.html">Wide</a></li>
-
-
-                            <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
-                            <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>-->
-                        </ul>
-                    </li>
-                    <!--<li class="nav-label">Apps</li>-->
-                    <li>
-                        <a class="has-arrow" href="item-menu.html" aria-expanded="false">
-                            <i class="fa fa-list" aria-hidden="true"></i> <span class="nav-text">Menú</span>
-                        </a>
-                        <!--<ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">Registro Menú</a></li>
-                            <li><a href="./email-read.html">Detalle Menú</a></li>
-                        </ul>-->
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="./item-inventario.html" aria-expanded="false">
-                            <i class="fa fa-dropbox" aria-hidden="true"></i><span class="nav-text">Inventario</span>
-                        </a>
-                        <!--<ul aria-expanded="false">
-                            <li><a href="./email-inbox.html">Registro Producto</a></li>
-                            <li><a href="./email-read.html">Detalle P</a></li>
-                            <li><a href="./email-compose.html">Compose</a></li>
-                        </ul>-->
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="item-empleados.html" aria-expanded="false">
-                            <i class="fa fa-user-o" aria-hidden="true"></i><span class="nav-text">Empleados</span>
-                        </a>
-                        <!--<ul aria-expanded="false">
-                            <li><a href="./app-profile.html">Profile</a></li>
-                            <li><a href="./app-calender.html">Calender</a></li>
-                        </ul>-->
-                    </li>
-                    <li>
-                        <a class="has-arrow" href="item-mapa.html" aria-expanded="false">
-                            <i class="icon-graph menu-icon"></i> <span class="nav-text">Google Maps</span>
-                        </a>
-                        <!--<ul aria-expanded="false">
-                            <li><a href="./chart-flot.html">Flot</a></li>
-                            <li><a href="./chart-morris.html">Morris</a></li>
-                            <li><a href="./chart-chartjs.html">Chartjs</a></li>
-                            <li><a href="./chart-chartist.html">Chartist</a></li>
-                            <li><a href="./chart-sparkline.html">Sparkline</a></li>
-                            <li><a href="./chart-peity.html">Peity</a></li>
-                        </ul>-->
-                    </li>
-                    <!--<li class="nav-label">UI Components</li>-->
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i><span class="nav-text">Reportes</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="#">Productos</a></li>
-                            <li><a href="#">Ganancias</a></li>
-                            <li><a href="#">Inversiones</a></li>
-                            <li><a href="#">Empleados</a></li>
-                            <!--<li><a href="./ui-button-group.html">Button Group</a></li>
-                            <li><a href="./ui-cards.html">Cards</a></li>
-                            <li><a href="./ui-carousel.html">Carousel</a></li>
-                            <li><a href="./ui-dropdown.html">Dropdown</a></li>
-                            <li><a href="./ui-list-group.html">List Group</a></li>
-                            <li><a href="./ui-media-object.html">Media Object</a></li>
-                            <li><a href="./ui-modal.html">Modal</a></li>
-                            <li><a href="./ui-pagination.html">Pagination</a></li>
-                            <li><a href="./ui-popover.html">Popover</a></li>
-                            <li><a href="./ui-progressbar.html">Progressbar</a></li>
-                            <li><a href="./ui-tab.html">Tab</a></li>
-                            <li><a href="./ui-typography.html">Typography</a></li>-->
-                        </ul>
-                    </li>
-                    <!--<li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./uc-nestedable.html">Nestedable</a></li>
-                            <li><a href="./uc-noui-slider.html">Noui Slider</a></li>
-                            <li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
-                            <li><a href="./uc-toastr.html">Toastr</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="widgets.html" aria-expanded="false">
-                            <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
-                        </a>
-                    </li>
-                    <li class="nav-label">Forms</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-note menu-icon"></i><span class="nav-text">Forms</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./form-basic.html">Basic Form</a></li>
-                            <li><a href="./form-validation.html">Form Validation</a></li>
-                            <li><a href="./form-step.html">Step Form</a></li>
-                            <li><a href="./form-editor.html">Editor</a></li>
-                            <li><a href="./form-picker.html">Picker</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Table</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-menu menu-icon"></i><span class="nav-text">Table</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./table-basic.html" aria-expanded="false">Basic Table</a></li>
-                            <li><a href="./table-datatable.html" aria-expanded="false">Data Table</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-label">Pages</li>
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="./page-login.html">Login</a></li>
-                            <li><a href="./page-register.html">Register</a></li>
-                            <li><a href="./page-lock.html">Lock Screen</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Error</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="./page-error-404.html">Error 404</a></li>
-                                    <li><a href="./page-error-403.html">Error 403</a></li>
-                                    <li><a href="./page-error-400.html">Error 400</a></li>
-                                    <li><a href="./page-error-500.html">Error 500</a></li>
-                                    <li><a href="./page-error-503.html">Error 503</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>-->
-                </ul>
-            </div>
-        </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
+        <?php
+        include 'templates/sk-sidebar.php'
+        ?>
 
         <!--**********************************
             Content body start
@@ -368,97 +75,7 @@
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="td-codigo"><strong>1001</strong></td>
-                                                <td><img src="https://www.girasol.com.ec/wp-content/uploads/2017/10/1-360x300px.png" class="img-table rounded-circle mr-3" alt="">Aceite de Cocina de 250mg</td>
-                                                <td class="td-codigo"><strong>5</strong></td>
-                                                <td>
-                                                    <i class="fa fa-circle-o text-danger  mr-2"></i> <span class="badge badge-danger badge-sm m-t-5">Casi Agotado</span>
-                                                </td>
-                                                <td class="td-codigo"><strong>3.50 $</strong> </td>
-                                                <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i> Editar</button>
-                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Eliminar</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="td-codigo"><strong>1080</strong></td>
-                                                <td><img src="https://lh3.googleusercontent.com/proxy/-eKqL0L4l-4sze7gou3T0ms557G62LTZgLIWzr96cpzRkwptbZNzqaPZykcV9wy0q3fjewvU_q3YWFpvloHst9-0kPy65HYSUiRf445Gzv_LKSSf_ikhKeIkTOb7A961jo_4Gw" class="img-table rounded-circle mr-3"
-                                                        alt="">Pan Integral</td>
-                                                <td class="td-codigo"><strong>68</strong></td>
-                                                <td>
-                                                    <i class="fa fa-circle-o text-primary  mr-2"></i>
-                                                    <span class="badge badge-primary badge-sm m-t-5">Estable</span>
-                                                </td>
-                                                <td class="td-codigo"><strong>3.50 $</strong> </td>
-                                                <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i> Editar</button>
-                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Eliminar</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="td-codigo"><strong>1001</strong></td>
-                                                <td><img src="https://www.girasol.com.ec/wp-content/uploads/2017/10/1-360x300px.png" class="img-table rounded-circle mr-3" alt="">Aceite de Cocina de 250mg</td>
-                                                <td class="td-codigo"><strong>3</strong></td>
-                                                <td>
-                                                    <i class="fa fa-circle-o text-danger  mr-2"></i> <span class="badge badge-danger badge-sm m-t-5">Casi Agotado</span>
-                                                </td>
-                                                <td class="td-codigo"><strong>3.50 $</strong> </td>
-                                                <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i> Editar</button>
-                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Eliminar</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="td-codigo"><strong>9080</strong></td>
-                                                <td><img src="https://lh3.googleusercontent.com/proxy/-eKqL0L4l-4sze7gou3T0ms557G62LTZgLIWzr96cpzRkwptbZNzqaPZykcV9wy0q3fjewvU_q3YWFpvloHst9-0kPy65HYSUiRf445Gzv_LKSSf_ikhKeIkTOb7A961jo_4Gw" class="img-table rounded-circle mr-3"
-                                                        alt="">Pan Integral</td>
-                                                <td class="td-codigo"><strong>150</strong></td>
-                                                <td>
-                                                    <i class="fa fa-circle-o text-primary  mr-2"></i>
-                                                    <span class="badge badge-primary badge-sm m-t-5">Estable</span>
-                                                </td>
-                                                <td class="td-codigo"><strong>3.50 $</strong> </td>
-                                                <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i> Editar</button>
-                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Eliminar</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="td-codigo"><strong>7001</strong></td>
-                                                <td><img src="https://www.girasol.com.ec/wp-content/uploads/2017/10/1-360x300px.png" class="img-table rounded-circle mr-3" alt="">Aceite de Cocina de 250mg</td>
-                                                <td class="td-codigo"><strong>12</strong></td>
-                                                <td>
-                                                    <i class="fa fa-circle-o text-danger  mr-2"></i> <span class="badge badge-danger badge-sm m-t-5">Casi Agotado</span>
-                                                </td>
-                                                <td class="td-codigo"><strong>3.50 $</strong> </td>
-                                                <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i> Editar</button>
-                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Eliminar</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="td-codigo"><strong>5000</strong></td>
-                                                <td><img src="https://lh3.googleusercontent.com/proxy/-eKqL0L4l-4sze7gou3T0ms557G62LTZgLIWzr96cpzRkwptbZNzqaPZykcV9wy0q3fjewvU_q3YWFpvloHst9-0kPy65HYSUiRf445Gzv_LKSSf_ikhKeIkTOb7A961jo_4Gw" class="img-table rounded-circle mr-3"
-                                                        alt="">Pan Integral</td>
-                                                <td class="td-codigo"><strong>98</strong></td>
-                                                <td>
-                                                    <i class="fa fa-circle-o text-primary  mr-2"></i>
-                                                    <span class="badge badge-primary badge-sm m-t-5">Estable</span>
-                                                </td>
-                                                <td class="td-codigo"><strong>3.50 $</strong> </td>
-                                                <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i> Editar</button>
-                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Eliminar</button>
-                                                </td>
-                                            </tr>
-
+                                        <tbody id="tbody_inventario">
                                         </tbody>
                                     </table>
                                 </div>
@@ -475,17 +92,9 @@
 
 
 
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright &copy; <a href="https://virtualcode7.web.app/" target="_blank">Virtualcode7</a> 2021</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
+        <?php
+        include 'templates/footer.php'
+        ?>
     </div>
     <!--**********************************
         Main wrapper end
@@ -508,7 +117,7 @@
                     <div class="col-lg-12">
                         <div class="basic-form">
                             <div class="container-foto-add-menu">
-                                <img src="/images/profile/profile.png" class="img-add-menu mr-3">
+                                <img src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
                                 <form>
                                     <div class="form-group">
                                         <input type="file" class="form-control-file">
@@ -521,21 +130,21 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Descripción</label>
-                                    <input type="email" class="form-control" placeholder="Email">
+                                    <input type="text" id="input1" class="form-control" placeholder="Descripción">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Precio Compra</label>
-                                    <input type="password" class="form-control" placeholder="Password">
+                                    <input type="text" id="input2" class="form-control" placeholder="Precio Compra<">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Stock</label>
-                                    <input type="email" class="form-control" placeholder="Email">
+                                    <input type="number" id="input3"  class="form-control" placeholder="Stock">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Referencia Proveedor</label>
-                                    <input type="password" class="form-control" placeholder="Password">
+                                    <input type="text" id="input4" class="form-control" placeholder="Referencia Proveedor">
                                 </div>
                             </div>
                         </form>
@@ -548,7 +157,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="button" id="btn_save_producto" class="btn btn-primary">Guardar Cambios</button>
                 </div>
             </div>
         </div>
@@ -635,7 +244,7 @@
 
 
     <script>
-        $(document).on("click", ".sweet-confirm", function() {
+        $(document).on("click", ".sweelt-confirm", function() {
             swal({
                 title: "Desea eliminar este item?",
                 text: "No podrás recuperar este archivo imaginario !!",
@@ -645,9 +254,98 @@
                 confirmButtonText: "Eliminar",
                 closeOnConfirm: !1
             }, function() {
-                swal("Eliminado !!", "¡¡Oye, tu archivo imaginario ha sido eliminado !!", "success")
+                
             })
         })
+
+        $(document).on("click","#btn_save_producto",function()
+        {
+            var user = "<?php echo $_SESSION['user'];?>";
+            var obj = {
+                detalle:document.getElementById("input1").value,
+                stock:document.getElementById("input3").value,
+                precio_compra:document.getElementById("input2").value, 
+                fk_id_empleado:user, 
+                detalle_proveedor:document.getElementById("input4").value, 
+                foto_producto:"https://www.sweetesthome.mx/wp-content/uploads/2020/04/Aap-38960208_m-1024x683.jpg"
+            }
+            console.log(obj)
+
+            insertInvenatrioAll(obj)
+        })
+
+        function readInvenatrioAll(){
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/inventario.php",
+                method:"GET"
+            })
+            .done(function(datos){
+                var strintify = JSON.stringify(datos)
+                var json = JSON.parse(strintify)
+                var template = ""
+
+                if(json.status == 200)
+                {
+                    for(var i=0;i<json.datos.length;i++)
+                    {
+                        var span = ""
+                        if(json.datos[i].stock <= 5){
+                            span = '<i class="fa fa-circle-o text-danger  mr-2"></i> <span class="badge badge-danger badge-sm m-t-5">Casi Agotado</span>'
+                        }else{
+                            span = '<i class="fa fa-circle-o text-primary  mr-2"></i><span class="badge badge-primary badge-sm m-t-5">Estable</span>'
+                        }
+
+                        template+= `<tr>
+                                                <td class="td-codigo"><strong>${json.datos[i].id_producto}</strong></td>
+                                                <td><img src="${json.datos[i].foto_producto}" class="img-table rounded-circle mr-3"
+                                                        alt="">${json.datos[i].detalle}</td>
+                                                <td class="td-codigo"><strong>${json.datos[i].stock}</strong></td>
+                                                <td>
+                                                    ${span}
+                                                </td>
+                                                <td class="td-codigo"><strong>${json.datos[i].precio_compra} $</strong> </td>
+                                                <td>
+                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target=".bd-edit-modal-lg"><i class="fa fa-edit m-r-5"></i></button>
+                                                    <button class="btn btn-danger m-b-30 sweet-confirm" type="button"><i class="fa fa-trash m-r-5"></i></button>
+                                                </td>
+                                            </tr>`
+                    }
+                    document.getElementById("tbody_inventario").innerHTML = template
+                }
+
+
+            }).fail(function(error)
+            {
+                console.log(error)
+                alert("ERROR API INVENTARIO")
+            })
+        }
+
+        function insertInvenatrioAll(datos)
+        {
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/inventario.php",
+                method:"POST",
+                data:JSON.stringify(datos)
+            })
+            .done(function(datos){
+                var strintify = JSON.stringify(datos)
+                var json = JSON.parse(strintify)
+
+                if(json.status == 200)
+                {
+                    readInvenatrioAll()
+                    swal("Producto registrado !!", "¡¡Oye, tu archivo ha sido registrado con exito !!", "success")
+                }
+
+            }).fail(function(error)
+            {
+                console.log(error)
+                alert("ERROR API INVENTARIO")
+            })
+        }
+
+        readInvenatrioAll()
     </script>
 
 
