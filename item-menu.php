@@ -58,7 +58,8 @@ session_start();
 
                     <div class="col-12">
 
-                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" data-toggle="modal" data-target=".bd-example-modal-lg" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Menú</button>
+                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right"
+                                data-toggle="modal" data-target="#idModalRegister" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Menú</button>
 
                         <br><br><br>
                         <div class="card">
@@ -183,7 +184,7 @@ session_start();
 
         <!-- Large modal -->
 
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div id="idModalRegister" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -196,10 +197,11 @@ session_start();
                         <div class="col-lg-12">
                             <div class="basic-form">
                                 <div class="container-foto-add-menu">
-                                    <img src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
+                                    <img id="imagenPrevisualizacion" src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
                                     <form>
                                         <div class="form-group">
-                                            <input type="file" class="form-control-file">
+                                            <input type="file" id="seleccionArchivos" 
+                                            class="form-control-file" accept="image/*">
                                         </div>
                                     </form>
                                 </div>
@@ -233,7 +235,64 @@ session_start();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="insertMenu()">Guardar Cambios</button>
+                        <button type="button" class="btn btn-primary" onclick="insertMenuPhoto()">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="idModalUpdate" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Actualizar Menú</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-lg-12">
+                            <div class="basic-form">
+                                <div class="container-foto-add-menu">
+                                    <img id="imagenPrevisualizacionUpdate" src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
+                                    <form>
+                                        <div class="form-group">
+                                            <input type="file" id="seleccionArchivosUpdate"
+                                                   class="form-control-file" accept="image/*">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Descripción</label>
+                                        <input type="text" id="description_update" class="form-control" placeholder="Descripción">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Precio</label>
+                                        <input type="number" min="0" id="precio_update" class="form-control" placeholder="Precio">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Tipo Menu</label>
+                                        <select id="inputStateUpdate" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="basic-form">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="updateMenuPhoto()">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
@@ -260,7 +319,7 @@ session_start();
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
-
+    <script src="js/selected_foto.js"></script>
 
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
     <!--<script src="./plugins/sweetalert/js/sweetalert.init.js"></script>-->
@@ -271,6 +330,49 @@ session_start();
     <script src="./plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
     <script>
+
+        let bandera_foto_update = false;
+        let estado = 0
+        let codigo = 0
+        let $seleccionArchivosUpdate = document.getElementById("seleccionArchivosUpdate")
+        let $imagenPrevisualizacionUpdate = document.getElementById("imagenPrevisualizacionUpdate")
+
+        $seleccionArchivosUpdate.addEventListener("change",function (e)
+        {
+            // Los archivos seleccionados, pueden ser muchos o uno
+            const archivos = $seleccionArchivosUpdate.files;
+            // Si no hay archivos salimos de la función y quitamos la imagen
+            if (!archivos || !archivos.length) {
+                $imagenPrevisualizacionUpdate.src = "";
+                return;
+            }
+            // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+            const primerArchivo = archivos[0];
+            // Lo convertimos a un objeto de tipo objectURL
+            const objectURL = URL.createObjectURL(primerArchivo);
+            // Y a la fuente de la imagen le ponemos el objectURL
+            $imagenPrevisualizacionUpdate.src = objectURL;
+            bandera_foto_update = true;
+        })
+
+
+
+        $(document).on("click",".update-menu",function(e)
+        {
+            var element = $(this)[0].attributes
+
+            console.log(element)
+
+            codigo = element[0].value//codigo
+            estado = element[3].value //estado
+
+            $("#inputStateUpdate").val(element[5].value)
+            $("#imagenPrevisualizacionUpdate").attr("src",element[4].value)
+            document.getElementById("description_update").value = element[1].value
+            document.getElementById("precio_update").value = element[2].value
+        })
+
+
         $(document).on("click", ".delete-menu", function() 
         {
             var element = $(this)[0]
@@ -354,7 +456,13 @@ session_start();
                                                 </td>
                                                 <td class="td-codigo"><strong>${json.datos[i].precio} $</strong> </td>
                                                 <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-edit m-r-5"></i></button>
+                                                    <button codigo="${json.datos[i].id_menu}" detalle = "${json.datos[i].detalle}"
+                                                            precio ="${json.datos[i].precio}" estado = "${json.datos[i].estado}"
+                                                            foto="${json.datos[i].foto_menu}"
+                                                            tipo="${json.datos[i].id_tipo_menu}"
+                                                            class="update-menu btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10"
+                                                            data-toggle="modal" data-target="#idModalUpdate" type="button">
+                                                            <i class="fa fa-edit m-r-5"></i></button>
                                                     <button codigo="${json.datos[i].id_menu}" class="btn btn-danger delete-menu m-b-30 btn sweet-confirm" type="button"><i class="fa fa-trash m-r-5"></i></button>
                                                 </td>
                                             </tr>`
@@ -368,7 +476,127 @@ session_start();
             })
         }
 
-        function insertMenu()
+        function insertMenuPhoto()
+        {
+            var formData = new FormData();
+            var files = $('#seleccionArchivos')[0].files[0];
+
+            formData.append('file',files);
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                method:"POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+            }).done(function(datos)
+            {
+                console.log(datos)
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if(json.status == 200)
+                {
+
+                    //readEventosAll()
+                    insertMenu(json.url.replace("../",""))
+                }else{
+                    swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
+                }
+
+            }).fail(function(error){
+                console.log(error.responseText)
+                alert("ERROR API REST")
+            })
+
+        }
+
+        function updateMenuPhoto()
+        {
+            if(bandera_foto_update)
+            {
+                bandera_foto_update = false
+                var formData = new FormData();
+                var files = $('#seleccionArchivosUpdate')[0].files[0];
+
+                formData.append('file',files);
+
+                $.ajax({
+                    url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                    method:"POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                }).done(function(datos)
+                {
+                    console.log(datos)
+                    var stringify = JSON.stringify(datos)
+                    var json = JSON.parse(stringify)
+                    if(json.status == 200)
+                    {
+
+                        //readEventosAll()
+                        var uri = json.url.replace("../","")
+                        updateMenu("https://roman-company.com/TrailerMovilApiRest/"+uri)
+                    }else{
+                        swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
+                    }
+
+                }).fail(function(error){
+                    console.log(error.responseText)
+                    alert("ERROR API REST")
+                })
+            }else{
+                var url = $("#imagenPrevisualizacionUpdate").attr("src")
+                updateMenu(url)
+            }
+
+        }
+
+
+        function updateMenu(url)
+        {
+            var det = document.getElementById("description_update").value
+            var pre = document.getElementById("precio_update").value
+
+            var obj = {
+                estado:estado,
+                id_menu:codigo,
+                detalle:det,
+                precio:pre,
+                foto:url,
+                tipo_menu:$("#inputStateUpdate").val()
+            }
+
+            console.log(obj)
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php",
+                method:"PUT",
+                data:JSON.stringify(obj)
+            }).done(function(datos)
+            {
+                console.log(datos)
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if(json.status == 200)
+                {
+                    $('#idModalUpdate').removeClass('modal-open')
+                    $('#idModalUpdate').modal('hide')
+                    swal("Menu Actualizado !!", "¡¡Oye, tu archivo ha sido actualizado con exito !!", "success")
+                    readMenusAll()
+                }else{
+                    swal("Menu no Actualizado !!", "¡¡Oye, tu archivo no ha sido actualizado con exito !!", "error")
+                }
+
+            }).fail(function(error){
+                console.log(error)
+                alert("ERROR API REST")
+            })
+        }
+
+
+
+        function insertMenu(url)
         {
             var det = document.getElementById("description_insert").value
             var pre = document.getElementById("precio_insert").value
@@ -376,7 +604,7 @@ session_start();
             var obj = {
                 detalle:det,
                 precio:pre,
-                foto:"https://lahora.com.ec/contenido/cache/2e/la_pilsener_sube_de_precio__20120113045222-2000x2000.jpg",
+                foto:"https://roman-company.com/TrailerMovilApiRest/"+url,
                 tipo:$("#inputState").val()
             }
 
@@ -393,10 +621,12 @@ session_start();
                 var json = JSON.parse(stringify)
                 if(json.status == 200)
                 {
+                    $('#idModalRegister').removeClass('modal-open')
+                    $('#idModalRegister').modal('hide')
                     swal("Menu Guardado !!", "¡¡Oye, tu archivo ha sido guardado con exito !!", "success")
                     readMenusAll()
                 }else{
-
+                    swal("Menu no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado con exito !!", "error")
                 }
 
             }).fail(function(error){
@@ -422,6 +652,7 @@ session_start();
                         template+= `<option value="${json.datos[i].id_tipo_menu}">${json.datos[i].detalle}</option>`
                     }
                     document.getElementById("inputState").innerHTML = template
+                    document.getElementById("inputStateUpdate").innerHTML = template
                 }
 
             }).fail(function(error){

@@ -56,7 +56,8 @@ session_start();
 
                     <div class="col-12">
 
-                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" type="button" data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus m-r-5"></i> Agregar Empleado</button>
+                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" type="button" 
+                        data-toggle="modal" data-target="#basicModal"><i class="fa fa-plus m-r-5"></i> Agregar Empleado</button>
                         <br><br><br>
                         <div class="card">
                             <div class="card-body">
@@ -177,25 +178,21 @@ session_start();
                                 <div class="card-body">
                                     <form class="login-input">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Nombres Completos" required>
+                                            <input type="text" class="form-control" id="names-update" placeholder="Nombres Completos" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control" placeholder="Telefono" required>
+                                            <input type="tel" class="form-control" id="telefono-update" placeholder="Telefono" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Usuario" required>
+                                            <input type="text"  disabled class="form-control" id="usuario-update" placeholder="Usuario" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="Password" required>
+                                            <input type="password" class="form-control" id="password-update" placeholder="Password" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label>Seleccione su Rol</label>
-                                            <select class="form-control" id="sel1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
+                                            <select class="form-control" id="sel1-update">
                                             </select>
                                         </div>
                                     </form>
@@ -205,7 +202,7 @@ session_start();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" class="btn btn-primary" onclick="UpdateEpleado()">Guardar Cambios</button>
                         <!--<button class="btn login-form__btn submit w-100">Sign in</button>-->
                     </div>
                 </div>
@@ -295,7 +292,7 @@ session_start();
                                                 </td>
                                                 <td class="td-codigo" rol="${json.datos[i].id_rol}"><strong>${json.datos[i].detalle}</strong></td>
                                                 <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target="#basicModalEditar"><i class="fa fa-edit m-r-5"></i></button>
+                                                    <button class="basicModalEditarEmpleado btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button" data-toggle="modal" data-target="#basicModalEditar"><i class="fa fa-edit m-r-5"></i></button>
                                                     <button class="btn-delete-empleado btn btn-danger m-b-30 sweet-confirm" user = "${json.datos[i].user}" type="button"><i class="fa fa-trash m-r-5"></i></button>
                                                 </td>
                                             </tr>`
@@ -310,7 +307,72 @@ session_start();
             })
         }
 
+
+
+        $(document).on("click",".basicModalEditarEmpleado",function()
+        {
+            var template  = $(this)[0].parentNode.parentNode.children
+            var names = template[0]
+            var tele = template[2]
+            var user = template[1]
+            var pass = template[3]
+            var rol = template[5].attributes[1].value
+
+            document.getElementById("names-update").value = names.innerText
+            document.getElementById("telefono-update").value = tele.innerText
+            document.getElementById("usuario-update").value = user.innerText
+            document.getElementById("password-update").value = pass.innerText
+            //document.getElementById("").value = names
+            $("#sel1-update").val(rol)
+
+
+            console.log(rol)  
+        })
+
         readEmpleados()
+
+        function UpdateEpleado()
+        {
+            var names = document.getElementById("names-update")
+            var tel = document.getElementById("telefono-update")
+            var user = document.getElementById("usuario-update")
+            var pass = document.getElementById("password-update")
+
+            var select_rol = document.getElementById("sel1-update");
+            var rol = select_rol.options[select_rol.selectedIndex].value;
+
+
+            var obj = {
+                user:user.value,
+                pass:pass.value,
+                names:names.value,
+                telefono:tel.value,
+                rol:rol,
+                estado:1
+            }
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/empleado.php",
+                method:'PUT',
+                data:JSON.stringify(obj)
+            }).done(function (datos)
+            {
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if (json.status == 200 && json.datos == true)
+                {
+                    readEmpleados()
+                    $('#basicModalEditar').removeClass('modal-open')
+                    $('#basicModalEditar').modal('hide')
+                }else{
+                    alert("EMPLEADO NO ACTUALIZADO")
+                }
+
+            }).fail(function (error)
+            {
+                console.log(error)
+            })   
+        }
 
         function insertEmpleado()
         {
@@ -373,6 +435,7 @@ session_start();
                     }
 
                     document.getElementById("sel1").innerHTML = template
+                    document.getElementById("sel1-update").innerHTML = template
                 }
 
             }).fail(function (error)

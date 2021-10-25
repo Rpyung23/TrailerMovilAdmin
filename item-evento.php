@@ -66,7 +66,8 @@ session_start();
 
                     <div class="col-12">
 
-                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" data-toggle="modal" data-target=".bd-example-modal-lg" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Evento</button>
+                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" data-toggle="modal" 
+                        data-target="#modalInsert" type="button"><i class="fa fa-plus m-r-5"></i> Agregar Evento</button>
 
                         <br><br><br>
                         <div class="card">
@@ -191,7 +192,7 @@ session_start();
 
         <!-- Large modal -->
 
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade bd-example-modal-lg" id="modalInsert" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -263,6 +264,82 @@ session_start();
 
 
 
+        <!-- Update modal -->
+
+        <div class="modal fade bd-example-modal-lg" id="basicModalEditar" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Actualizar Evento</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                            </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="col-lg-12">
+                            <div class="basic-form">
+                                <div class="container-foto-add-menu">
+                                    <img  src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" 
+                                    id="imagenPrevisualizacionUpdate"
+                                    class="img-add-menu mr-3">
+                                    <form>
+                                        <div class="form-group">
+                                            <input type="file" id="seleccionArchivosUpdate" class="form-control-file" accept="image/*">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                            <form>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Nombre del Evento</label>
+                                        <input type="text" id="name_update" class="form-control" placeholder="Nombre Evento">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Detalle</label>
+                                        <input type="text" id="detalle_update" class="form-control" placeholder="Detalle del Evento">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Ubicación</label>
+                                        <input type="text" id="ubicacion_update" class="form-control" placeholder="Ubicación del Evento">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Precio</label>
+                                        <input type="text" id="precio_update" class="form-control" placeholder="Precio">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Fecha Evento</label>
+                                        <input type="text" class="form-control" placeholder="Fecha del Evento" id="min-date-update" data-dtp="dtp_HWBym">
+                                    </div>
+                                    <!--<div class="form-group col-md-6">
+                                        <label>Precio</label>
+                                        <input type="text" id="precio_update" class="form-control" placeholder="Precio">
+                                    </div>-->
+                                </div>
+                           
+                            </form>
+                        </div>
+
+                        <div class="basic-form">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="updateEventoPhoto()">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 
         <?php
@@ -305,6 +382,32 @@ session_start();
 
 
     <script>
+
+        let bandera_foto_update = false;
+        let estado = 0
+        let codigo = 0
+        let $seleccionArchivosUpdate = document.getElementById("seleccionArchivosUpdate")
+        let $imagenPrevisualizacionUpdate = document.getElementById("imagenPrevisualizacionUpdate")
+
+        $seleccionArchivosUpdate.addEventListener("change",function (e)
+        {
+            // Los archivos seleccionados, pueden ser muchos o uno
+            const archivos = $seleccionArchivosUpdate.files;
+            // Si no hay archivos salimos de la función y quitamos la imagen
+            if (!archivos || !archivos.length) {
+                $imagenPrevisualizacionUpdate.src = "";
+                return;
+            }
+            // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+            const primerArchivo = archivos[0];
+            // Lo convertimos a un objeto de tipo objectURL
+            const objectURL = URL.createObjectURL(primerArchivo);
+            // Y a la fuente de la imagen le ponemos el objectURL
+            $imagenPrevisualizacionUpdate.src = objectURL;
+            bandera_foto_update = true;
+        })
+
+
         $(document).on("click", ".delete_evento", function() 
         {
             var element = $(this)[0]
@@ -383,7 +486,13 @@ session_start();
                                                 </td>
                                                 <td class="td-codigo"><strong>${json.datos[i].precio} $</strong> </td>
                                                 <td>
-                                                    <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-edit m-r-5"></i></button>
+                                                    <button 
+                                                    codigo="${json.datos[i].id_evento}" name ="${json.datos[i].nombre}" 
+                                                    foto ="${json.datos[i].foto}" estado="${json.datos[i].estado}" 
+                                                    precio = "${json.datos[i].precio}" detalle = "${json.datos[i].detalle}" 
+                                                    ubicacion = "${json.datos[i].ubicacion}" fecha = "${json.datos[i].fecha_evento}"
+
+                                                    class="update-evento btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10"  data-toggle="modal" data-target="#basicModalEditar" type="button"><i class="fa fa-edit m-r-5"></i></button>
                                                     <button id_evento="${json.datos[i].id_evento}" class="delete_evento btn btn-danger m-b-30" type="button"><i class="fa fa-trash m-r-5"></i></button>
                                                 </td>
                                             </tr>`
@@ -396,6 +505,30 @@ session_start();
                 alert("ERROR API REST")
             })
         }
+
+        $(document).on("click",".update-evento",function(e)
+        {
+            var element = $(this)[0].attributes
+            
+            console.log(element)
+
+            codigo = element[0].value//codigo
+            estado = element[3].value //estado
+            document.getElementById("name_update").value = element[1].value //name
+            //document.getElementById("").value = element[2] //foto
+            $("#imagenPrevisualizacionUpdate").attr("src",element[2].value)
+
+            document.getElementById("precio_update").value = element[4].value //precio
+            document.getElementById("detalle_update").value = element[5].value //detalle
+            document.getElementById("ubicacion_update").value = element[6].value //ubicacion
+            document.getElementById("min-date-update").value = element[7].value //fehcha
+
+
+
+
+
+            
+        })
 
         function insertEventoPhoto()
         {
@@ -431,6 +564,91 @@ session_start();
 
         }
 
+
+        function updateEventoPhoto()
+        {
+            if(bandera_foto_update)
+            {
+                bandera_foto_update = false
+                var formData = new FormData();
+            var files = $('#seleccionArchivosUpdate')[0].files[0];
+            
+            formData.append('file',files);
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                method:"POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+            }).done(function(datos)
+            {
+                console.log(datos)
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if(json.status == 200)
+                {
+                    
+                    //readEventosAll()
+                    var uri = json.url.replace("../","")
+                    updateEvento("https://roman-company.com/TrailerMovilApiRest/"+uri)
+                }else{
+                    swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
+                }
+
+            }).fail(function(error){
+                console.log(error.responseText)
+                alert("ERROR API REST")
+            })
+            }else{
+                var url = $("#imagenPrevisualizacionUpdate").attr("src")
+                
+                updateEvento(url)
+            }
+
+        }
+
+
+        function updateEvento(url)
+        {
+
+            var obj = {
+
+                nombre:document.getElementById("name_update").value,
+                detalle:document.getElementById("detalle_update").value,
+                ubicacion: document.getElementById("ubicacion_update").value,
+                foto:url,
+                fecha_evento:document.getElementById("min-date-update").value,
+                precio:document.getElementById("precio_update").value,
+                estado:estado,
+                id_evento:codigo
+            }
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php",
+                method:"PUT",
+                data:JSON.stringify(obj)
+            }).done(function(datos)
+            {
+                console.log(datos)
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if(json.status == 200)
+                {
+                    $('#basicModalEditar').removeClass('modal-open')
+                    $('#basicModalEditar').modal('hide')
+
+                    readEventosAll()
+                    swal("Menu Actualizado !!", "¡¡Oye, tu archivo ha sido actualizado con exito !!", "success")
+                }else{
+                    swal("Menu no actualizado !!", "¡¡Oye, tu archivo no ha sido actualizado con exito !!", "error")
+                }
+
+            }).fail(function(error){
+                console.log(error)
+                alert("ERROR API REST")
+            })
+        }
 
         function insertEvento(url)
         {
@@ -470,6 +688,11 @@ session_start();
 
 
         $('#min-date').bootstrapMaterialDatePicker({
+        format: 'YYYY/MM/DD HH:mm',
+        minDate: new Date()
+    });
+
+    $('#min-date-update').bootstrapMaterialDatePicker({
         format: 'YYYY/MM/DD HH:mm',
         minDate: new Date()
     });

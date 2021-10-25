@@ -74,6 +74,7 @@ session_unset();
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="environment/env.js"></script>
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
@@ -96,7 +97,32 @@ session_unset();
             console.log(obj)
             
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/login.php",
+                url:url_base+"TrailerMovilApiRest/view/login.php",
+                method :'POST',
+                data:JSON.stringify(obj) 
+  
+            })
+            .done(function(datos)
+            {
+                var datos = JSON.stringify(datos)
+                var json = JSON.parse(datos)
+                if(json.status == 200)
+                {
+                    saveSession(json.datos)
+                }else{
+                    alert("Usuario no encontrado.")
+                }
+            }).fail(function(error){
+                console.log(error)
+                alert("Error Api Rest")
+            })
+            
+        })
+
+        function saveSession(obj)
+        {
+            $.ajax({
+                url:url_base+"Trailer Movil/rest/session.php",
                 method :'POST',
                 data:JSON.stringify(obj) 
   
@@ -109,14 +135,13 @@ session_unset();
                 {
                     location.href = "./home.php"
                 }else{
-                    alert("Usuario no encontrado.")
+                    alert("Error SESSION")
                 }
             }).fail(function(error){
                 console.log(error)
                 alert("Error Api Rest")
             })
-            
-        })
+        }
     </script>
 
 

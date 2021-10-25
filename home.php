@@ -51,7 +51,7 @@ session_start();
 
             <div class="container-fluid mt-3">
                 <?php
-                if($_SESSION['id_rol'] == 1)
+                if($_SESSION["id_rol"] == 1)
                 {
                 ?>
                 <div class="row">
@@ -60,8 +60,8 @@ session_start();
                             <div class="card-body">
                                 <h3 class="card-title text-white">Inverciones</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">$ 45.50</h2>
-                                    <p class="text-white mb-0">Octubre 2021</p>
+                                    <h2 class="text-white" id="inverisones">$ 0</h2>
+                                    <p class="text-white mb-0" id="inverisones-txt">Mes Actual</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
                             </div>
@@ -72,8 +72,8 @@ session_start();
                             <div class="card-body">
                                 <h3 class="card-title text-white">Ganancias</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">$ 85.41</h2>
-                                    <p class="text-white mb-0">Octubre 2021</p>
+                                    <h2 class="text-white" id="ganancias">$ 0</h2>
+                                    <p class="text-white mb-0" id="ganancias-txt">Mes Actual</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
                             </div>
@@ -84,7 +84,7 @@ session_start();
                             <div class="card-body">
                                 <h3 class="card-title text-white">Empleados</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">45</h2>
+                                    <h2 class="text-white" id="activos">45</h2>
                                     <p class="text-white mb-0">Activos</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
@@ -96,8 +96,8 @@ session_start();
                             <div class="card-body">
                                 <h3 class="card-title text-white">Satisfación Cliente</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white">3/5</h2>
-                                    <p class="text-white mb-0">2019</p>
+                                    <h2 class="text-white" id="satisfacion">3/5</h2>
+                                    <p class="text-white mb-0"></p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-star"></i></span>
                             </div>
@@ -345,6 +345,183 @@ session_start();
                 swal("Pagada !!", "¡¡La factura #45556666 ha sido pagada con éxito !!", "success")
             })
         })
+
+        function UltimoDayMes()
+        {
+            var date = new  Date()
+            var mes = date.getMonth()+1;
+
+            switch(mes)
+            {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    return 31
+                    break;
+                case 2:
+                                /**BISIESTO**/
+                    if(date.getFullYear() /4 == 0 
+                         && date.getFullYear()/100 != 0 
+                         && date.getFullYear()/400 == 0)
+                    {
+                         return 29;
+                     }else{
+                         return 28
+                     }
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    return 30
+                    break;
+            }
+
+        }
+
+        function DateNow(banderaUltimoPrimerDia){
+            var date = new  Date()
+            var year = date.getFullYear()
+            var mes = date.getMonth()+1 <10 ? "0"+date.getMonth()+1 : date.getMonth()+1
+            var day = banderaUltimoPrimerDia == 0 ? "01" : UltimoDayMes()
+            return (year+"/"+mes+"/"+day)
+        }
+
+        function DateNameMonth(){
+            var date = new  Date()
+            var year = date.getFullYear()
+            var mes = date.getMonth()+1
+            var name_name = ""
+            switch(mes)
+            {
+                case 1:
+                    name_name = "Enero "+year
+                    break;
+                    case 2:
+                    name_name = "Febrero "+year
+                    break;
+                    case 3:
+                    name_name = "Marzo "+year
+                    break;
+                    case 4:
+                    name_name = "Abril "+year
+                    break;
+                    case 5:
+                    name_name = "Mayo "+year
+                    break;
+                    case 6:
+                    name_name = "Junio "+year
+                    break;
+                    case 7:
+                    name_name = "Julio "+year
+                    break;
+                    case 8:
+                    name_name = "Agosto "+year
+                    break;
+                    case 9:
+                    name_name = "Septiembre "+year
+                    break;
+                    case 10:
+                    name_name = "Octubre "+year
+                    break;
+                    case 11:
+                    name_name = "Noviembre "+year
+                    break;
+                    case 12:
+                    name_name = "Diciembre "+year
+                    break;
+            }
+            document.getElementById("inverisones-txt").innerText = name_name
+            document.getElementById("ganancias-txt").innerText = name_name
+        }
+        
+        function readInversiones()
+        {
+            var uri = "https://roman-company.com/TrailerMovilApiRest/view/inventario.php?fechaI="+DateNow(0)+"&fechaF="+DateNow(1)
+            console.log(uri)
+            $.ajax({
+                url:uri,
+                method:"GET"
+            }).done(function(datos)
+            {
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                var tot = "$ 0";
+                if(json.status == 200)
+                {
+                    tot = json.datos != null ? "$ "+json.datos : "$ 0"
+                }
+
+                document.getElementById("inverisones").innerText = tot
+
+            }).fail(function(error)
+            {
+                console.log(error)
+                alert(error)
+            })
+        }
+
+        function readSatisfacion()
+        {
+            var uri = "https://roman-company.com/TrailerMovilApiRest/view/ranking.php"
+            console.log(uri)
+            $.ajax({
+                url:uri,
+                method:"GET"
+            }).done(function(datos)
+            {
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                var tot = "$ 0";
+                if(json.status == 200)
+                {
+                    tot = json.datos != null ? json.datos+"/5" : " 0/5"
+                }
+
+                document.getElementById("satisfacion").innerText = tot
+
+            }).fail(function(error)
+            {
+                console.log(error)
+                alert(error)
+            })
+        }
+
+        function readEmpleadoActivos()
+        {
+            var uri = "https://roman-company.com/TrailerMovilApiRest/view/empleado.php/activos"
+            console.log(uri)
+            $.ajax({
+                url:uri,
+                method:"GET"
+            }).done(function(datos)
+            {
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                var tot = 0;
+                if(json.status == 200)
+                {
+                    tot = json.datos != null ? json.datos : 0
+                }
+
+                document.getElementById("activos").innerText = tot
+
+            }).fail(function(error)
+            {
+                console.log(error)
+                alert(error)
+            })
+        }
+
+        readInversiones()
+        readEmpleadoActivos()
+        DateNameMonth()
+        readSatisfacion()
+
     </script>
 
 

@@ -1,5 +1,5 @@
-const $seleccionArchivos = document.querySelector("#seleccionArchivos"),
-    $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
+let $seleccionArchivos = document.querySelector("#seleccionArchivos")
+let $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
 
 // Escuchar cuando cambie
 $seleccionArchivos.addEventListener("change", () => {

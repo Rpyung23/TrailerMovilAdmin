@@ -58,7 +58,8 @@ session_start();
 
                     <div class="col-12">
 
-                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right" type="button" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-plus m-r-5"></i> Agregar Producto</button>
+                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10 float-right"
+                                type="button" data-toggle="modal" data-target="#idmodalRegister"><i class="fa fa-plus m-r-5"></i> Agregar Producto</button>
 
                         <br><br><br>
                         <div class="card">
@@ -104,7 +105,7 @@ session_start();
 
     <!-- Large modal -->
 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="idmodalRegister" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,10 +118,11 @@ session_start();
                     <div class="col-lg-12">
                         <div class="basic-form">
                             <div class="container-foto-add-menu">
-                                <img src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
+                                <img id="imagenPrevisualizacion" src="https://e7.pngegg.com/pngimages/637/822/png-clipart-font-awesome-upload-computer-icons-font-computers-blue-text.png" class="img-add-menu mr-3">
                                 <form>
                                     <div class="form-group">
-                                        <input type="file" class="form-control-file">
+                                        <input type="file" id="seleccionArchivos" 
+                                            class="form-control-file" accept="image/*">
                                     </div>
                                 </form>
                             </div>
@@ -134,13 +136,13 @@ session_start();
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Precio Compra</label>
-                                    <input type="text" id="input2" class="form-control" placeholder="Precio Compra<">
+                                    <input type="text" id="input2"  min="0" class="form-control" placeholder="Precio Compra<">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label>Stock</label>
-                                    <input type="number" id="input3"  class="form-control" placeholder="Stock">
+                                    <input type="number" min="1" id="input3"  class="form-control" placeholder="Stock">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Referencia Proveedor</label>
@@ -236,6 +238,7 @@ session_start();
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
     <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="js/selected_foto.js"></script>
     <!--<script src="./plugins/sweetalert/js/sweetalert.init.js"></script>-->
 
     <script src="./plugins/tables/js/jquery.dataTables.min.js"></script>
@@ -260,18 +263,7 @@ session_start();
 
         $(document).on("click","#btn_save_producto",function()
         {
-            var user = "<?php echo $_SESSION['user'];?>";
-            var obj = {
-                detalle:document.getElementById("input1").value,
-                stock:document.getElementById("input3").value,
-                precio_compra:document.getElementById("input2").value, 
-                fk_id_empleado:user, 
-                detalle_proveedor:document.getElementById("input4").value, 
-                foto_producto:"https://www.sweetesthome.mx/wp-content/uploads/2020/04/Aap-38960208_m-1024x683.jpg"
-            }
-            console.log(obj)
-
-            insertInvenatrioAll(obj)
+            insertInvenatrioPhoto()
         })
 
         function readInvenatrioAll(){
@@ -321,6 +313,53 @@ session_start();
             })
         }
 
+        function insertInvenatrioPhoto()
+        {
+            var formData = new FormData();
+            var files = $('#seleccionArchivos')[0].files[0];    
+            
+            formData.append('file',files);
+
+            $.ajax({
+                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                method:"POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+            }).done(function(datos)
+            {
+                console.log(datos)
+                var stringify = JSON.stringify(datos)
+                var json = JSON.parse(stringify)
+                if(json.status == 200)
+                {
+                    
+                    //readEventosAll()
+                    var user = "<?php echo $_SESSION['user'];?>";
+                    var url = json.url.replace("../","")
+            var obj = {
+                detalle:document.getElementById("input1").value,
+                stock:document.getElementById("input3").value,
+                precio_compra:document.getElementById("input2").value, 
+                fk_id_empleado:user, 
+                detalle_proveedor:document.getElementById("input4").value, 
+                foto_producto:"https://roman-company.com/TrailerMovilApiRest/"+url
+            }
+            
+
+
+                    insertInvenatrioAll(obj)
+                }else{
+                    swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
+                }
+
+            }).fail(function(error){
+                console.log(error.responseText)
+                alert("ERROR API REST")
+            })
+
+        }
+
         function insertInvenatrioAll(datos)
         {
             $.ajax({
@@ -334,6 +373,8 @@ session_start();
 
                 if(json.status == 200)
                 {
+                    $('#idmodalRegister').removeClass('modal-open')
+                    $('#idmodalRegister').modal('hide')
                     readInvenatrioAll()
                     swal("Producto registrado !!", "¡¡Oye, tu archivo ha sido registrado con exito !!", "success")
                 }
