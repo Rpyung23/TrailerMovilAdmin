@@ -268,7 +268,7 @@ session_start();
 
         function readInvenatrioAll(){
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/inventario.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/inventario.php",
                 method:"GET"
             })
             .done(function(datos){
@@ -321,7 +321,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -363,7 +363,7 @@ session_start();
         function insertInvenatrioAll(datos)
         {
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/inventario.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/inventario.php",
                 method:"POST",
                 data:JSON.stringify(datos)
             })

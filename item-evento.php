@@ -415,7 +415,7 @@ session_start();
             console.log(element)
 
             swal({
-                title: "Desea eliminar este item "+code+"?",
+                title: "Desea desactivar "+element.attributes[1].value+" ?",
                 text: "No podrás recuperar este archivo imaginario !!",
                 type: "warning",
                 showCancelButton: !0,
@@ -437,7 +437,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php",
                 method:"DELETE",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -459,7 +459,7 @@ session_start();
         function readEventosAll()
         {
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php?estado=all",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php?estado=all",
             }).done(function(datos)
             {
                 console.log(datos)
@@ -493,7 +493,7 @@ session_start();
                                                     ubicacion = "${json.datos[i].ubicacion}" fecha = "${json.datos[i].fecha_evento}"
 
                                                     class="update-evento btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10"  data-toggle="modal" data-target="#basicModalEditar" type="button"><i class="fa fa-edit m-r-5"></i></button>
-                                                    <button id_evento="${json.datos[i].id_evento}" class="delete_evento btn btn-danger m-b-30" type="button"><i class="fa fa-trash m-r-5"></i></button>
+                                                    <button id_evento="${json.datos[i].id_evento}"  NameEvento="${json.datos[i].nombre}" class="delete_evento btn btn-danger m-b-30" type="button"><i class="fa fa-trash m-r-5"></i></button>
                                                 </td>
                                             </tr>`
                     }
@@ -538,7 +538,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -576,7 +576,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -591,7 +591,7 @@ session_start();
                     
                     //readEventosAll()
                     var uri = json.url.replace("../","")
-                    updateEvento("https://roman-company.com/TrailerMovilApiRest/"+uri)
+                    updateEvento("https://trailer.roman-company.com/TrailerMovilApiRest/"+uri)
                 }else{
                     swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
                 }
@@ -625,7 +625,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php",
                 method:"PUT",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -656,13 +656,13 @@ session_start();
                 nombre:document.getElementById("name_insert").value,
                 detalle:document.getElementById("detalle_insert").value,
                 ubicacion:document.getElementById("ubicacion_insert").value,
-                foto:"https://roman-company.com/TrailerMovilApiRest/"+url,
+                foto:"https://trailer.roman-company.com/TrailerMovilApiRest/"+url,
                 fecha_evento:document.getElementById("min-date").value,
                 precio:document.getElementById("precio_insert").value
             }
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/evento.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php",
                 method:"POST",
                 data:JSON.stringify(obj)
             }).done(function(datos)

@@ -380,7 +380,7 @@ session_start();
             console.log(element)
 
             swal({
-                title: "Desea eliminar este item "+code+"?",
+                title: "Desea eliminar "+element.attributes[1].value  +"?",
                 text: "No podrás recuperar este archivo imaginario !!",
                 type: "warning",
                 showCancelButton: !0,
@@ -402,7 +402,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php",
                 method:"DELETE",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -425,7 +425,7 @@ session_start();
         function readMenusAll()
         {
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
             }).done(function(datos)
             {
                 console.log(datos)
@@ -446,7 +446,7 @@ session_start();
 
                         template+= ` <tr>
                                                 <td class="td-codigo"><strong>${json.datos[i].id_menu}</strong></td>
-                                                <td><img src="${json.datos[i].foto_menu}"
+                                                <td><img loading="lazy" src="${json.datos[i].foto_menu}"
                                                         class="img-table rounded-circle mr-2" alt="">${json.datos[i].detalle}</td>
                                                 <td>
                                                     ${json.datos[i].detalle_tipo}
@@ -463,7 +463,7 @@ session_start();
                                                             class="update-menu btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10"
                                                             data-toggle="modal" data-target="#idModalUpdate" type="button">
                                                             <i class="fa fa-edit m-r-5"></i></button>
-                                                    <button codigo="${json.datos[i].id_menu}" class="btn btn-danger delete-menu m-b-30 btn sweet-confirm" type="button"><i class="fa fa-trash m-r-5"></i></button>
+                                                    <button codigo="${json.datos[i].id_menu}" nameProducto="${json.datos[i].detalle}" class="btn btn-danger delete-menu m-b-30 btn sweet-confirm" type="button"><i class="fa fa-trash m-r-5"></i></button>
                                                 </td>
                                             </tr>`
                     }
@@ -484,7 +484,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -521,7 +521,7 @@ session_start();
                 formData.append('file',files);
 
                 $.ajax({
-                    url:"https://roman-company.com/TrailerMovilApiRest/view/upload.php",
+                    url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
                     method:"POST",
                     data: formData,
                     contentType: false,
@@ -536,7 +536,7 @@ session_start();
 
                         //readEventosAll()
                         var uri = json.url.replace("../","")
-                        updateMenu("https://roman-company.com/TrailerMovilApiRest/"+uri)
+                        updateMenu("https://trailer.roman-company.com/TrailerMovilApiRest/"+uri)
                     }else{
                         swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
                     }
@@ -570,7 +570,7 @@ session_start();
             console.log(obj)
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php",
                 method:"PUT",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -604,14 +604,14 @@ session_start();
             var obj = {
                 detalle:det,
                 precio:pre,
-                foto:"https://roman-company.com/TrailerMovilApiRest/"+url,
+                foto:"https://trailer.roman-company.com/TrailerMovilApiRest/"+url,
                 tipo:$("#inputState").val()
             }
 
             //console.log(obj)
 
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
                 method:"POST",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -638,7 +638,7 @@ session_start();
         function readTipoMenu()
         {
             $.ajax({
-                url:"https://roman-company.com/TrailerMovilApiRest/view/tipomenu.php",
+                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/tipomenu.php",
             }).done(function(datos)
             {
                 console.log(datos)

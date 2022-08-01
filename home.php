@@ -200,99 +200,6 @@ session_start();
 
 
 
-                <?php
-                if($_SESSION['id_rol'] == 1)
-                {
-                ?>
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-facebook">
-                                    <span class="s-icon"><i class="fa fa-facebook"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">89k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">119k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-linkedin">
-                                    <span class="s-icon"><i class="fa fa-linkedin"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">89k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">119k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-googleplus">
-                                    <span class="s-icon"><i class="fa fa-google-plus"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">89k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">119k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card">
-                                <div class="social-graph-wrapper widget-twitter">
-                                    <span class="s-icon"><i class="fa fa-twitter"></i></span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">89k</h4>
-                                            <p class="m-0">Friends</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                            <h4 class="m-1">119k</h4>
-                                            <p class="m-0">Followers</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php
-                }
-                ?>
             </div>
             <!-- #/ container -->
         </div>
@@ -332,10 +239,14 @@ session_start();
 
 
     <script>
-        $(document).on("click", ".sweet-confirm", function() {
+        $(document).on("click", ".sweet-confirm", function()
+        {
+            var element = $(this)[0]
+            console.log(element)
+
             swal({
                 title: "Desea pagar esta factura?",
-                text: "La factura #45556666 sera pagada en su totalidad!",
+                text: "La factura N° "+element+" sera pagada en su totalidad!",
                 type: "warning",
                 showCancelButton: !0,
                 confirmButtonColor: "#DD6B55",
@@ -441,7 +352,7 @@ session_start();
         
         function readInversiones()
         {
-            var uri = "https://roman-company.com/TrailerMovilApiRest/view/inventario.php?fechaI="+DateNow(0)+"&fechaF="+DateNow(1)
+            var uri = "https://trailer.roman-company.com/TrailerMovilApiRest/view/inventario.php?fechaI="+DateNow(0)+"&fechaF="+DateNow(1)
             console.log(uri)
             $.ajax({
                 url:uri,
@@ -467,7 +378,7 @@ session_start();
 
         function readSatisfacion()
         {
-            var uri = "https://roman-company.com/TrailerMovilApiRest/view/ranking.php"
+            var uri = "https://trailer.roman-company.com/TrailerMovilApiRest/view/ranking.php"
             console.log(uri)
             $.ajax({
                 url:uri,
@@ -493,7 +404,7 @@ session_start();
 
         function readEmpleadoActivos()
         {
-            var uri = "https://roman-company.com/TrailerMovilApiRest/view/empleado.php/activos"
+            var uri = "https://trailer.roman-company.com/TrailerMovilApiRest/view/empleado.php/activos"
             console.log(uri)
             $.ajax({
                 url:uri,

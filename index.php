@@ -122,7 +122,7 @@ session_unset();
         function saveSession(obj)
         {
             $.ajax({
-                url:url_base+"Trailer Movil/rest/session.php",
+                url:"http://localhost/TrailerMovilAdmin/rest/session.php",
                 method :'POST',
                 data:JSON.stringify(obj) 
   
