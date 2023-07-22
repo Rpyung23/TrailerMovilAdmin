@@ -264,7 +264,7 @@ session_start();
         function readEmpleados()
         {
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/empleado.php",
+                url:"http://localhost/TrailerMovilApiRest/view/empleado.php",
                 method:'GET'
             }).done(function (datos)
             {
@@ -352,7 +352,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/empleado.php",
+                url:"http://localhost/TrailerMovilApiRest/view/empleado.php",
                 method:'PUT',
                 data:JSON.stringify(obj)
             }).done(function (datos)
@@ -394,7 +394,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/empleado.php",
+                url:"http://localhost/TrailerMovilApiRest/view/empleado.php",
                 method:'POST',
                 data:JSON.stringify(obj)
             }).done(function (datos)
@@ -419,7 +419,7 @@ session_start();
         function readRol()
         {
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/rol.php",
+                url:"http://localhost/TrailerMovilApiRest/view/rol.php",
                 method:'GET'
             }).done(function (datos)
             {
@@ -477,7 +477,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/empleado.php",
+                url:"http://localhost/TrailerMovilApiRest/view/empleado.php",
                 method:'DELETE',
                 data:JSON.stringify(obj)
             }).done(function (datos)

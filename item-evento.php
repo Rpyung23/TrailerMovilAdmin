@@ -240,10 +240,10 @@ session_start();
                                         <label>Fecha Evento</label>
                                         <input type="text" class="form-control" placeholder="Fecha del Evento" id="min-date" data-dtp="dtp_HWBym">
                                     </div>
-                                    <!--<div class="form-group col-md-6">
-                                        <label>Precio</label>
-                                        <input type="text" id="precio_insert" class="form-control" placeholder="Precio">
-                                    </div>-->
+                                    <div class="form-group col-md-6">
+                                        <label>Cant Boletos</label>
+                                        <input type="number" id="canBoletos_insert" class="form-control" placeholder="0">
+                                    </div>
                                 </div>
                            
                             </form>
@@ -266,7 +266,7 @@ session_start();
 
         <!-- Update modal -->
 
-        <div class="modal fade bd-example-modal-lg" id="basicModalEditar" tabindex="-1" role="dialog" aria-hidden="true">
+        <div  class="modal fade bd-example-modal-lg" id="basicModalEditar" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -354,6 +354,7 @@ session_start();
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="environment/env.js"></script>
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
@@ -437,7 +438,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php",
+                url:url_base+"/evento.php",
                 method:"DELETE",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -458,8 +459,10 @@ session_start();
 
         function readEventosAll()
         {
-            $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php?estado=all",
+            console.log("aqui read")
+            try {
+                $.ajax({
+                url:url_base+"/evento.php?estado=all",
             }).done(function(datos)
             {
                 console.log(datos)
@@ -504,6 +507,9 @@ session_start();
                 console.log(error)
                 alert("ERROR API REST")
             })
+            } catch (error) {
+              console.log(error)  
+            }
         }
 
         $(document).on("click",".update-evento",function(e)
@@ -538,7 +544,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url: url_base+"/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -576,7 +582,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url:"http://localhost/TrailerMovilApiRest/view/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -591,7 +597,7 @@ session_start();
                     
                     //readEventosAll()
                     var uri = json.url.replace("../","")
-                    updateEvento("https://trailer.roman-company.com/TrailerMovilApiRest/"+uri)
+                    updateEvento("http://localhost/TrailerMovilApiRest/"+uri)
                 }else{
                     swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
                 }
@@ -625,7 +631,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php",
+                url:"http://localhost/TrailerMovilApiRest/view/evento.php",
                 method:"PUT",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -656,13 +662,15 @@ session_start();
                 nombre:document.getElementById("name_insert").value,
                 detalle:document.getElementById("detalle_insert").value,
                 ubicacion:document.getElementById("ubicacion_insert").value,
-                foto:"https://trailer.roman-company.com/TrailerMovilApiRest/"+url,
+                foto: url_baseOrigin+url,
                 fecha_evento:document.getElementById("min-date").value,
-                precio:document.getElementById("precio_insert").value
+                precio:document.getElementById("precio_insert").value,
+                numBoletosDisponibles:document.getElementById("canBoletos_insert").value
             }
+            console.log(obj)
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/evento.php",
+                url:url_base+"/evento.php",
                 method:"POST",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -673,7 +681,8 @@ session_start();
                 if(json.status == 200)
                 {
                     readEventosAll()
-                    swal("Menu Guardado !!", "¡¡Oye, tu archivo ha sido guardado con exito !!", "success")
+                    $('#basicModalEditar').modal('hide')
+                    swal("Evento Guardado !!", "¡¡Oye, tu archivo ha sido guardado con exito !!", "success")
                 }else{
 
                 }

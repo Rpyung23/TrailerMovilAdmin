@@ -1,2 +1,4 @@
-//const url_base = "http://localhost/VC7/"
-const url_base = "https://trailer.roman-company.com/"
+const url_base = "http://localhost/TrailerMovilApiRest/view"
+const url_baseOrigin = "http://localhost/TrailerMovilApiRest/"
+//const url_baseOrigin = "http://localhost/TrailerMovilApiRest/"
+//const url_base = "http://localhost/TrailerMovilApiRest/view"

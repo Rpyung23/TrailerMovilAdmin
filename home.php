@@ -50,11 +50,9 @@ session_start();
         <div class="content-body">
 
             <div class="container-fluid mt-3">
-                <?php
-                if($_SESSION["id_rol"] == 1)
-                {
-                ?>
-                <div class="row">
+                
+
+            <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">
                             <div class="card-body">
@@ -105,97 +103,7 @@ session_start();
                     </div>
                 </div>
 
-                <?php
-                }
-                ?>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="active-member">
-                                    <div class="table-responsive">
-                                        <table class="table table-xs mb-0 zero-configuration">
-                                            <thead>
-                                                <tr>
-                                                    <th>Cliente</th>
-                                                    <th>Telefono</th>
-                                                    <th>N° Reserva</th>
-                                                    <th>Fecha Reserva</th>
-                                                    <th>N° Personas</th>
-                                                    <th>Estado Reserva</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><img src="./images/avatar/1.jpg" class=" rounded-circle mr-3" alt="">Carlos Smith</td>
-                                                    <td>1234587896</td>
-                                                    <td>00008</td>
-                                                    <td>
-                                                        <span>15/10/2121 14:00</span>
-                                                    </td>
-                                                    <td>3 Personas</td>
-                                                    <td><i class="fa fa-circle-o text-danger  mr-2"></i> Pendiente</td>
-                                                    <td>
-                                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-eye m-r-5"></i> Detalle</button>
-                                                        <button class="btn btn-dark m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Pagar</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="./images/avatar/2.jpg" class=" rounded-circle mr-3" alt="">Miguel Ramón.</td>
-                                                    <td>5876543781</td>
-                                                    <td><span>00152</span></td>
-                                                    <td>
-                                                        <span>15/10/2121 15:30</span>
-                                                    </td>
-                                                    <td>5 Personas</td>
-                                                    <td>
-                                                        <i class="fa fa-circle-o text-danger  mr-2"></i> Pendiente
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-eye m-r-5"></i> Detalle</button>
-                                                        <button class="btn btn-dark m-b-30 sweet-confirm" type="button"><i class="fa fa-money m-r-5"></i> Pagar</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="./images/avatar/1.jpg" class=" rounded-circle mr-3" alt="">Sarah Smith</td>
-                                                    <td>1234567896</td>
-                                                    <td>00001</td>
-                                                    <td>
-                                                        <span>15/10/2121 18:00</span>
-                                                    </td>
-                                                    <td>10 Personas</td>
-                                                    <td><i class="fa fa-circle-o text-success  mr-2"></i> Pagado</td>
-                                                    <td>
-                                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-eye m-r-5"></i> Ver Detalle</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><img src="./images/avatar/2.jpg" class=" rounded-circle mr-3" alt="">Walter R.</td>
-                                                    <td>9876543281</td>
-                                                    <td><span>00152</span></td>
-                                                    <td>
-                                                        <span>15/10/2121 19:30</span>
-                                                    </td>
-                                                    <td>5 Personas</td>
-                                                    <td>
-                                                        <i class="fa fa-circle-o text-success  mr-2"></i> Pagado
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-primary m-b-30 m-t-15 f-s-14 p-l-20 p-r-20 m-r-10" type="button"><i class="fa fa-eye m-r-5"></i> Ver Detalle</button>
-                                                        <!--<button class="btn btn-dark m-b-30" type="button"><i class="fa fa-money m-r-5"></i> Pagar</button>-->
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
 
@@ -220,6 +128,7 @@ session_start();
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="environment/env.js"></script>
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
@@ -352,7 +261,7 @@ session_start();
         
         function readInversiones()
         {
-            var uri = "https://trailer.roman-company.com/TrailerMovilApiRest/view/inventario.php?fechaI="+DateNow(0)+"&fechaF="+DateNow(1)
+            var uri = url_base+"/inventario.php?fechaI="+DateNow(0)+"&fechaF="+DateNow(1)
             console.log(uri)
             $.ajax({
                 url:uri,
@@ -378,7 +287,7 @@ session_start();
 
         function readSatisfacion()
         {
-            var uri = "https://trailer.roman-company.com/TrailerMovilApiRest/view/ranking.php"
+            var uri = url_base+"/ranking.php"
             console.log(uri)
             $.ajax({
                 url:uri,
@@ -404,7 +313,7 @@ session_start();
 
         function readEmpleadoActivos()
         {
-            var uri = "https://trailer.roman-company.com/TrailerMovilApiRest/view/empleado.php/activos"
+            var uri = url_base+"/empleado.php/activos"
             console.log(uri)
             $.ajax({
                 url:uri,

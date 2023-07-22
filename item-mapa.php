@@ -193,7 +193,7 @@ session_start();
         function readPositionBD()
         {
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/mapa.php",
+                url:"http://localhost/TrailerMovilApiRest/view/mapa.php",
                 method:"GET"
             }).done(function(datos)
             {
@@ -218,7 +218,7 @@ session_start();
          function updatePositionBD(datos)
         {
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/mapa.php",
+                url:"http://localhost/TrailerMovilApiRest/view/mapa.php",
                 method:"PUT",
                 data:JSON.stringify(datos)
             }).done(function(datos)

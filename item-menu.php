@@ -402,7 +402,7 @@ session_start();
             }
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php",
+                url:"http://localhost/TrailerMovilApiRest/view/menu.php",
                 method:"DELETE",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -425,7 +425,7 @@ session_start();
         function readMenusAll()
         {
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
+                url:"http://localhost/TrailerMovilApiRest/view/menu.php?estado=all",
             }).done(function(datos)
             {
                 console.log(datos)
@@ -484,7 +484,7 @@ session_start();
             formData.append('file',files);
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
+                url:"http://localhost/TrailerMovilApiRest/view/upload.php",
                 method:"POST",
                 data: formData,
                 contentType: false,
@@ -521,7 +521,7 @@ session_start();
                 formData.append('file',files);
 
                 $.ajax({
-                    url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/upload.php",
+                    url:"http://localhost/TrailerMovilApiRest/view/upload.php",
                     method:"POST",
                     data: formData,
                     contentType: false,
@@ -536,7 +536,7 @@ session_start();
 
                         //readEventosAll()
                         var uri = json.url.replace("../","")
-                        updateMenu("https://trailer.roman-company.com/TrailerMovilApiRest/"+uri)
+                        updateMenu("http://localhost/TrailerMovilApiRest/"+uri)
                     }else{
                         swal("Foto no Guardado !!", "¡¡Oye, tu archivo no ha sido guardado !!", "warning")
                     }
@@ -570,7 +570,7 @@ session_start();
             console.log(obj)
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php",
+                url:"http://localhost/TrailerMovilApiRest/view/menu.php",
                 method:"PUT",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -604,14 +604,14 @@ session_start();
             var obj = {
                 detalle:det,
                 precio:pre,
-                foto:"https://trailer.roman-company.com/TrailerMovilApiRest/"+url,
+                foto:"http://localhost/TrailerMovilApiRest/"+url,
                 tipo:$("#inputState").val()
             }
 
             //console.log(obj)
 
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/menu.php?estado=all",
+                url:"http://localhost/TrailerMovilApiRest/view/menu.php?estado=all",
                 method:"POST",
                 data:JSON.stringify(obj)
             }).done(function(datos)
@@ -638,7 +638,7 @@ session_start();
         function readTipoMenu()
         {
             $.ajax({
-                url:"https://trailer.roman-company.com/TrailerMovilApiRest/view/tipomenu.php",
+                url:"http://localhost/TrailerMovilApiRest/view/tipomenu.php",
             }).done(function(datos)
             {
                 console.log(datos)

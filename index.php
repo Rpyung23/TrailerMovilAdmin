@@ -97,7 +97,7 @@ session_unset();
             console.log(obj)
             
             $.ajax({
-                url:url_base+"TrailerMovilApiRest/view/login.php",
+                url:url_base+"/login.php",
                 method :'POST',
                 data:JSON.stringify(obj) 
   
@@ -114,7 +114,7 @@ session_unset();
                 }
             }).fail(function(error){
                 console.log(error)
-                alert("Error Api Rest")
+                alert("LOGIN Error Api Rest")
             })
             
         })
